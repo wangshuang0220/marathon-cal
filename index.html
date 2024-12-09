@@ -425,7 +425,7 @@
       // 转换为时:分:秒
       const hours = Math.floor(totalTimeInSeconds / 3600);
       const minutes = Math.floor((totalTimeInSeconds % 3600) / 60);
-      const seconds = totalTimeInSeconds % 60;
+      const seconds = Math.floor(totalTimeInSeconds % 60);
 
       // 显示结果
       document.getElementById('result').innerText = `预计完赛时间: ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`;
