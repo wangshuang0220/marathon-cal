@@ -69,6 +69,16 @@
       color: #333;
     }
 
+    .time-selection, .pace-selection {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .time-selection select, .pace-selection select {
+      width: 30%;
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 15px;
@@ -80,6 +90,10 @@
 
       button {
         font-size: 14px;
+      }
+
+      .time-selection select, .pace-selection select {
+        width: 28%;
       }
     }
   </style>
@@ -102,10 +116,11 @@
     <label for="customDistance" id="customDistanceLabel" style="display:none;">输入目标公里数 (km):</label>
     <input type="number" id="customDistance" placeholder="输入目标公里数" style="display:none;" />
 
-    <label for="hours">选择完赛时间:</label>
-    <div>
+    <label for="time">选择完赛时间:</label>
+    <div class="time-selection">
       <select id="hours">
         <option value="0">小时</option>
+        <option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -116,10 +131,11 @@
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option>
-      </select> 小时
+      </select>
 
       <select id="minutes">
         <option value="0">分钟</option>
+        <option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -170,10 +186,20 @@
         <option value="48">48</option>
         <option value="49">49</option>
         <option value="50">50</option>
-      </select> 分
+		<option value="51">51</option>
+        <option value="52">52</option>
+        <option value="53">53</option>
+        <option value="54">54</option>
+        <option value="55">55</option>
+        <option value="56">56</option>
+        <option value="57">57</option>
+        <option value="58">58</option>
+        <option value="59">59</option>
+      </select>
 
       <select id="seconds">
         <option value="0">秒</option>
+		<option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -233,13 +259,13 @@
         <option value="57">57</option>
         <option value="58">58</option>
         <option value="59">59</option>
-      </select> 秒
+      </select>
     </div>
 
     <button onclick="calculatePace()">计算配速</button>
 
     <label for="pace">选择配速:</label>
-    <div>
+    <div class="pace-selection">
       <select id="paceMinutes">
         <option value="0">分钟</option>
         <option value="1">1</option>
@@ -258,6 +284,7 @@
 
       <select id="paceSeconds">
         <option value="0">秒</option>
+		<option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -308,7 +335,7 @@
         <option value="48">48</option>
         <option value="49">49</option>
         <option value="50">50</option>
-        <option value="51">51</option>
+		<option value="51">51</option>
         <option value="52">52</option>
         <option value="53">53</option>
         <option value="54">54</option>
