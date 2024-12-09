@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>马拉松配速计算器</title>
+  <style>
+    /* 页面整体布局 */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      font-size: 16px;
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+
+      input, select {
+        font-size: 14px;
+      }
+
+      button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>马拉松配速计算器</h1>
+    
+    <label for="distance">选择比赛距离:</label>
+    <select id="distance">
+      <option value="21.0975">半马 (21.0975 km)</option>
+      <option value="42.195">全马 (42.195 km)</option>
+      <option value="10">10公里</option>
+      <option value="5">5公里</option>
+      <option value="3">3公里</option>
+      <option value="custom">自定义公里数</option>
+    </select>
+
+    <label for="customDistance" id="customDistanceLabel" style="display:none;">输入目标公里数 (km):</label>
+    <input type="number" id="customDistance" placeholder="输入目标公里数" style="display:none;" />
+
+    <label for="time">完赛时间 (HH:MM:SS):</label>
+    <input type="text" id="time" placeholder="输入完赛时间，格式: HH:MM:SS" />
+
+    <button onclick="calculatePace()">计算配速</button>
+
+    <label for="pace">选择配速:</label>
+    <div>
+      <select id="paceMinutes">
+        <option value="0">分钟</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+      </select> 分
+
+      <select id="paceSeconds">
+        <option value="0">秒</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+        <option value="31">31</option>
+        <option value="32">32</option>
+        <option value="33">33</option>
+        <option value="34">34</option>
+        <option value="35">35</option>
+        <option value="36">36</option>
+        <option value="37">37</option>
+        <option value="38">38</option>
+        <option value="39">39</option>
+        <option value="40">40</option>
+        <option value="41">41</option>
+        <option value="42">42</option>
+        <option value="43">43</option>
+        <option value="44">44</option>
+        <option value="45">45</option>
+        <option value="46">46</option>
+        <option value="47">47</option>
+        <option value="48">48</option>
+        <option value="49">49</option>
+        <option value="50">50</option>
+        <option value="51">51</option>
+        <option value="52">52</option>
+        <option value="53">53</option>
+        <option value="54">54</option>
+        <option value="55">55</option>
+        <option value="56">56</option>
+        <option value="57">57</option>
+        <option value="58">58</option>
+        <option value="59">59</option>
+      </select> 秒
+    </div>
+
+    <button onclick="calculateTime()">计算完赛时间</button>
+
+    <h2 id="result"></h2>
+  </div>
+
+  <script>
+    // 监听选择的比赛距离，显示自定义公里数输入框
+    document.getElementById('distance').addEventListener('change', function() {
+      if (this.value === 'custom') {
+        document.getElementById('customDistance').style.display = 'block';
+        document.getElementById('customDistanceLabel').style.display = 'block';
+      } else {
+        document.getElementById('customDistance').style.display = 'none';
+        document.getElementById('customDistanceLabel').style.display = 'none';
+      }
+    });
+
+    // 计算配速
+    function calculatePace() {
+      let distance = parseFloat(document.getElementById('distance').value);
+      if (distance === 'custom') {
+        distance = parseFloat(document.getElementById('customDistance').value);
+      }
+
+      const time = document.getElementById('time').value;
+
+      if (!distance || isNaN(distance) || distance <= 0) {
+        alert('请输入有效的公里数');
+        return;
+      }
+
+      // 检查时间格式
+      const timeRegex = /^(\d{2}):(\d{2}):(\d{2})$/;
+      const match = time.match(timeRegex);
+      if (!match) {
+        alert('完赛时间格式不正确，应该是 HH:MM:SS');
+        return;
+      }
+
+      const hours = parseInt(match[1]);
+      const minutes = parseInt(match[2]);
+      const seconds = parseInt(match[3]);
+
+      // 计算完赛时间总秒数
+      const totalTimeInSeconds = (hours * 3600) + (minutes * 60) + seconds;
+
+      if (totalTimeInSeconds <= 0) {
+        alert('请输入有效的完赛时间');
+        return;
+      }
+
+      // 计算配速
+      const pace = totalTimeInSeconds / distance; // 每公里配速（秒/公里）
+      const paceMinutes = Math.floor(pace / 60); // 配速的分钟部分
+      const paceSeconds = Math.round(pace % 60); // 配速的秒部分
+
+      // 显示结果
+      document.getElementById('result').innerText = `每公里配速: ${paceMinutes} 分 ${paceSeconds} 秒`;
+    }
+
+    // 计算完赛时间
+    function calculateTime() {
+      let distance = parseFloat(document.getElementById('distance').value);
+      if (distance === 'custom') {
+        distance = parseFloat(document.getElementById('customDistance').value);
+      }
+
+      const paceMinutes = parseInt(document.getElementById('paceMinutes').value);
+      const paceSeconds = parseInt(document.getElementById('paceSeconds').value);
+
+      if (!distance || isNaN(distance) || distance <= 0) {
+        alert('请输入有效的公里数');
+        return;
+      }
+
+      if (isNaN(paceMinutes) || isNaN(paceSeconds)) {
+        alert('请选择有效的配速');
+        return;
+      }
+
+      const paceInSeconds = (paceMinutes * 60) + paceSeconds; // 将配速转化为秒
+
+      // 计算完赛总时间（秒）
+      const totalTimeInSeconds = paceInSeconds * distance;
+
+      // 转换为时:分:秒
+      const hours = Math.floor(totalTimeInSeconds / 3600);
+      const minutes = Math.floor((totalTimeInSeconds % 3600) / 60);
+      const seconds = totalTimeInSeconds % 60;
+
+      // 显示结果
+      document.getElementById('result').innerText = `预计完赛时间: ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`;
+    }
+  </script>
+
+</body>
+</html>
